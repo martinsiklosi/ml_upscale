@@ -1,7 +1,7 @@
 import pygame
 from settings import *
 from button import Button
-from analyze import predict
+#from analyze import predict
 
 pygame.init()
 pygame.font.init()
@@ -43,7 +43,7 @@ def get_row_col_from_pos(pos):
 
 run = True
 clock = pygame.time.Clock()
-grid = init_grid(GRID_SIZE, GRID_SIZE, WHITE)
+grid = init_grid(IN_SIZE, IN_SIZE, WHITE)
 
 buttons = [
     Button(10, 10, 50, 50, WHITE, "Clear", BLACK),
@@ -63,10 +63,11 @@ while run:
                 if not button.clicked(pos):
                     continue
                 if button.text == "Clear":
-                    grid = init_grid(GRID_SIZE, GRID_SIZE, WHITE)
+                    grid = init_grid(IN_SIZE, IN_SIZE, WHITE)
                 if button.text == "Analyze":
-                    prediction, cert = predict(grid)
-                    buttons[2].text = f"Result: {prediction} ({cert*100:.0f}%)"
+                    #prediction, cert = predict(grid)
+                    #buttons[2].text = f"Result: {prediction} ({cert*100:.0f}%)"
+                    continue
                 break
             else:
                 try:
