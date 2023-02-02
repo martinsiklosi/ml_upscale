@@ -9,6 +9,10 @@ pygame.font.init()
 WINDOW = pygame.display.set_mode((WIN_SIZE, WIN_SIZE))
 pygame.display.set_caption("AnalyzerX2000")
 
+
+def get_font(size):
+    return pygame.font.SysFont("helvetica", size)
+
 def init_grid(rows, cols, color):
     grid = []
     for i in range(rows):

@@ -1,26 +1,25 @@
 import tensorflow as tf
 from tensorflow import keras
+# import numpy as np
+import json
 from settings import *
 
-# get data
-# kika på https://www.tensorflow.org/tutorials/load_data/images
-(train_images, train_labels), (test_images, test_labels) = \
-    keras.datasets.mnist.load_data()
+with open("data.json", "r") as infile:
+    in_data, out_data = json.load(infile)
 
-def posterise(images):
-    images[images >= 200] == 255
-    images[images < 200] == 0
-    return images
+# in_data, out_data = np.asarray(in_data), np.asarray(out_data)
 
-train_images = posterise(train_images)
-test_images = posterise(test_images)
+cutoff = round(len(in_data)*TRAINING_RATIO)
+train_in_data, train_out_data = in_data[:cutoff], in_data[:cutoff]
+test_in_data, test_out_data = in_data[cutoff:], in_data[cutoff:]
 
 # setup model
 model = keras.Sequential([
-    keras.layers.Flatten(input_shape=(GRID_SIZE, GRID_SIZE)),
-    keras.layers.Dense(196, activation=tf.nn.relu),
-    keras.layers.Dense(196, activation=tf.nn.relu),
-    keras.layers.Dense(10, activation=tf.nn.softmax),
+    keras.layers.Flatten(input_shape=(IN_SIZE, IN_SIZE)),
+    keras.layers.Dense(1024, activation=tf.nn.relu),
+    keras.layers.Dense(1024, activation=tf.nn.relu),
+    keras.layers.Dense(OUT_SIZE**2, activation=tf.nn.relu),
+    keras.layers.Reshape((OUT_SIZE, OUT_SIZE))
 ])
 
 model.compile(
@@ -30,7 +29,7 @@ model.compile(
 )
 
 # train model
-model.fit(train_images, train_labels, epochs=4)
+model.fit(train_in_data, train_out_data, epochs=EPOCHS)
 
 # save model
 model.save('model')

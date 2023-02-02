@@ -1,17 +1,18 @@
-import pygame
-
 FPS = 240
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 IN_SIZE = 20
-ROWS = IN_SIZE
-COLS = IN_SIZE
 OUT_SIZE = 45
 WIN_SIZE = 600
-WIDTH = 600
-HEIGHT = 600
-PIXEL_SIZE = WIDTH // COLS
-THICKNESS = 2
+THICKNESS = 1
+MAX_TRAINING_FILES = 100
 
-def get_font(size):
-    return pygame.font.SysFont("helvetica", size)
+EPOCHS = 2
+TRAINING_RATIO = 0.8
+
+
+ROWS = IN_SIZE
+COLS = IN_SIZE
+WIDTH = WIN_SIZE
+HEIGHT = WIN_SIZE
+PIXEL_SIZE = WIDTH // COLS
